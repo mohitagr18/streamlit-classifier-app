@@ -16,10 +16,8 @@ st.write("""
 # Explore Classifiers
 """)
 st.text("")
-st.markdown("""
-This simple app allows users to explore the performance of various machine learning classifiers on different datasets.
-- Use the menu at left to select the dataset, the classifier, and set model parameters.
-""")
+st.write("This simple app allows users to explore the performance of various machine learning classifiers on different datasets.")
+st.write("&nbsp  :dart: &nbsp  Use the menu at left to select the dataset, the classifier, and to set model parameters.")
 
 ######################## DATASET INFO ########################################
 
@@ -117,39 +115,39 @@ elif clf_name in ["Decision Tree", "Random Forest"]:
 st.header(f"Let's compare the performance of {clf_name} models")
 st.text("")
 st.markdown("""
-Here, we compare the performance of a naive model (coded from scratch) with the model created using `scikit-learn`.
+Here, we compare the performance of a naive model (coded from scratch) with the model created using [scikit-learn](https://scikit-learn.org/stable/supervised_learning.html).
 The details of different classifiers coded from scratch can be found __[here](https://mohitagr18.github.io/posts/machinelearning/)__.
 """)
-mod_col, mod_col2 = st.beta_columns(2)
+if clf_name != "Naive Bayes":
+    st.write("&nbsp  :dart: &nbsp  Use the menu at left to set model parameters.")
+
+mod_col, _, mod_col2, _ = st.beta_columns(4)
 
 # Details in mod_col
 mod_col.subheader("Model coded from scratch")
 mod_col.write(f"Accuracy: {acc}")
 mod_col.write(f"Precision: {precision}")
 mod_col.write(f"Recall: {recall}")
+mod_col.write("Confusion Matrix:")
+mod_col.pyplot(cm_fig)
 
 # Details in mod_col2
 mod_col2.subheader("Scikit-learn model")
 mod_col2.write(f"Accuracy: {acc_skt}")
 mod_col2.write(f"Precision: {precision_skt}")
 mod_col2.write(f"Recall: {recall_skt}")
-
-# Confusion Matrix
-cm_col1, _, cm_col2, _ = st.beta_columns(4)
-cm_col1.write("Confusion Matrix:")
-cm_col1.pyplot(cm_fig)
-cm_col2.write("Confusion Matrix:")
-cm_col2.pyplot(cm_skt_fig)
+mod_col2.write("Confusion Matrix:")
+mod_col2.pyplot(cm_skt_fig)
 
 # Additional plots
 if clf_name in ["Decision Tree", "Random Forest"]:
     st.subheader("Visualize tree")
     if clf_name == "Decision Tree":
-        st.write("Let's visualize the decision tree created using `scikit-learn` model.")
+        st.write("Let's visualize the decision tree created using scikit-learn model.")
     else:
-        st.write("Let's visualize the __first__ of _n_ decision trees created using `scikit-learn` model.")
+        st.write(f"Let's visualize the __first__ of _{param[0]}_ decision trees created using scikit-learn model.")
     with st.beta_expander("Expand to view the tree"):
-        st.write("`scikit-learn` allows the flexibility to visualize a decision tree. Streamlit's conversion of the figure resulting from `tree.plot_tree()` is not great but here is a try.")
+        st.write("scikit-learn allows the flexibility to visualize a decision tree. Streamlit's rendering of the figure resulting from `tree.plot_tree()` is not great but here is a try.")
         st.pyplot(tree_fig)
 
 if clf_name == "KNN":
