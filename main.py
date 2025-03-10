@@ -17,7 +17,7 @@ st.write("""
 """)
 st.text("")
 st.write("This simple app allows users to explore the performance of various machine learning classifiers on different datasets.")
-st.write("&nbsp  :dart: &nbsp  Use the menu at left to select the dataset, the classifier, and to set model parameters.")
+st.write(":dart: Use the menu at left to select the dataset, the classifier, and to set model parameters.")
 
 ######################## DATASET INFO ########################################
 
@@ -36,7 +36,7 @@ class_count = pd.DataFrame(Y).iloc[:,0].value_counts()
 
 st.header(f"Let's take a look at the {dataset_name} dataset")
 st.text("")
-info_col, info_col2 = st.beta_columns(2)
+info_col, info_col2 = st.columns(2)  # Changed from beta_columns
 
 # Details in info_col
 info_col.write("Shape of dataset:")
@@ -57,7 +57,7 @@ info_col2.write(class_count)
 st.write("Head of the dataset:")
 st.write(head)
 st.write("Data description:")
-with st.beta_expander("Expand to view the description of dataset"):
+with st.expander("Expand to view the description of dataset"):  # Changed from beta_expander
     st.write(descr)
 st.markdown("---")
 
@@ -68,13 +68,13 @@ st.header("Let's visualize the data")
 
 st.subheader("Scatter plot: Features colored by class")
 st.write("The plots show the variation in each feature colored by class.")
-with st.beta_expander("Expand to view the scatter plot"):
+with st.expander("Expand to view the scatter plot"):  # Changed from beta_expander
     fig, data = create_plot(dataset_name)
     st.pyplot(fig)
 
 st.subheader("Correlation plot")
 st.write("The plot shows correlation among numeric features in dataset.")
-with st.beta_expander("Expand to view the correlation plot"):
+with st.expander("Expand to view the correlation plot"):  # Changed from beta_expander
     corr_fig = corr_plot(data)
     st.pyplot(corr_fig)
 st.markdown("---")
@@ -121,7 +121,7 @@ The details of different classifiers coded from scratch can be found __[here](ht
 if clf_name != "Naive Bayes":
     st.write("&nbsp  :dart: &nbsp  Use the menu at left to set model parameters.")
 
-mod_col, _, mod_col2, _ = st.beta_columns(4)
+mod_col, _, mod_col2, _ = st.columns(4)  # Changed from beta_columns
 
 # Details in mod_col
 mod_col.subheader("Model coded from scratch")
@@ -146,12 +146,12 @@ if clf_name in ["Decision Tree", "Random Forest"]:
         st.write("Let's visualize the decision tree created using scikit-learn model.")
     else:
         st.write(f"Let's visualize the __first__ of _{param[0]}_ decision trees created using scikit-learn model.")
-    with st.beta_expander("Expand to view the tree"):
+    with st.expander("Expand to view the tree"):  # Changed from beta_expander
         st.write("scikit-learn allows the flexibility to visualize a decision tree. Streamlit's rendering of the figure resulting from `tree.plot_tree()` is not great but here is a try.")
         st.pyplot(tree_fig)
 
 if clf_name == "KNN":
-    k_col1, _ = st.beta_columns([3,1])
+    k_col1, _ = st.columns([3,1])  # Changed from beta_columns
     k_col1.subheader("Best K value")
     k_col1.write("The plot shows error rate for different values of K, generated using model coded from scratch.")
     k_col1.pyplot(k_fig)
