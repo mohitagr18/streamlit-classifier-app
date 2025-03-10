@@ -14,7 +14,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import tree
 from classifiers import *
 
-@st.cache
+@st.cache_data  # Changed from @st.cache
 def get_dataset(dataset_name):
     '''
     Returns data and info
@@ -32,7 +32,7 @@ def get_dataset(dataset_name):
     descr = data.DESCR
     return X, Y, classes, descr
 
-@st.cache
+@st.cache_data  # Changed from @st.cache
 def get_data_info(dataset_name):
     '''
     Returns dataset information
